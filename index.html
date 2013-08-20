@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+	 <!-- jQuery includes -->
+	 <title>JQuery Dialog Builder, violetweb.ca</title>
+	<link href="css/jquery.ui.theme.min.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+	if (typeof jQuery == 'undefined') {
+	    document.write(unescape("%3Cscript src='js/jquery-1.10.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+	}
+	</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="js/jquery.doAjaxCall.js"></script>
+    <script src="js/jquery.dialogBuilder.js"></script>
+
+    <script>
+    $(document).ready(function() {
+   		//var url = 'restfuldatabasecaller.asp'; // Need a restful call   		
+		//var params = "QA=" + ttext + "&QID=" + qques + "&QType=" + qtype + "&QText=" + ttext + "&abnid=" + abnid;  // Need a list of standard params
+		// SAMPLE : doAjaxCall(url,params,'');
+    	//Build dialogs based on ul list.
+        $("#dialogs").dialogBuilder();
+	    //Activate first one based on cancel click.
+        $(".btn-cancel").on("click",function(){
+			 $("#S1BD").dialog("open");
+    	});
+    });
+
+    </script>
+</head>
+<body> 
+
+
+
+	<form>
+	<div>
+			<button class="btn-cancel" type="button">Cancel</button>
+	</div>
+<ul id="dialogs" style="display:none;">
+	<li>
+		<div id="S1">
+		<h3>Title Here</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla imperdiet, sem non mattis ornare, leo nisl cursus tortor, ac malesuada quam tellus vel justo. Maecenas luctus at eros eu lacinia. Aenean molestie mauris sed pellentesque interdum. Maecenas adipiscing consequat massa at sagittis. Ut porttitor nulla vel imperdiet sagittis.</p>
+			<span data-button-text='Yes; I have used the services.' data-button-function='doAjaxCall,"nameofrestful.asp","param1=123&param2=S1",""' data-button-goto='servicesYesBD'>Yes</span>
+			<span data-button-text='No; I have not used the services.' data-button-function='' data-button-goto='servicesNoBD'>Yes</span>
+		</div>
+		<ul>
+			<li>
+				<div id="servicesYes">
+				<h3>Yes; has used our services...</h3>
+				<p>That's great, what services did you use?<br/>
+				<em>(Wait for response from customer)</em></p>
+				<p>How much did you save doing so?<br/>
+				<em>(If don’t know have them estimate)</em></p>
+				<span data-button-text="If more than $2" data-button-function='' data-button-goto="moreThanTwoBD">(If more than $2)</span>
+				<span data-button-text="If less than $2" data-button-function='' data-button-goto='lessThanTwoBD'>(If less than $2)</span>
+				(Skip to wrap up after they answer)
+				  So you are already saving most of your monthly membership, if you took advantage of some of the other services (List services they did not say they used) you would be making money on us!
+				</div>
+				<ul>
+					<li>
+
+						<div id="moreThanTwo">
+							<p> Curabitur non aliquam magna, vel condimentum felis. Proin laoreet mauris quis rutrum rhoncus. Pellentesque molestie nunc non mauris placerat posuere. Integer blandit, risus vel sagittis volutpat, orci ante pulvinar ligula, at bibendum eros quam ut felis. Nunc sollicitudin et erat nec mollis. Integer non consequat risus.
+							</p>
+							<span data-button-text="Yes; wrap Up" data-button-function='' data-button-goto="wrapUpBD">Yes</span>
+							<span data-button-text="No; did not read" data-button-function="" data-button-goto="">Do we need this button</span>						
+						</div>
+						<ul>
+							<li>
+								<div id="wrapUp">
+									<h3>Wrap things up...</h3>
+									<p> Curabitur non aliquam magna, vel condimentum felis. Proin laoreet mauris quis rutrum rhoncus. Pellentesque molestie nunc non mauris placerat posuere. Integer blandit, risus vel sagittis volutpat, orci ante pulvinar ligula, at bibendum eros quam ut felis. Nunc sollicitudin et erat nec mollis. Integer non consequat risus. </p>
+									<h3>Closing statement...</h3>
+									
+									<span data-button-text="Yes" data-button-function='' data-button-goto="yesIWillStayBD">Yes</span>
+									<span data-button-text="No; please cancel" data-button-function="" data-button-goto="cancelAccountBD">No</span>
+								</div>
+									<ul>
+									<li>
+										<div id="yesIWillStay">
+											<p>Excellent!  Aenean non lectus at neque viverra tincidunt. Donec cursus metus a ipsum interdum sagittis. Pellentesque mi lorem, commodo eu mi sed, lobortis placerat ipsum.</p>
+											<p>Thank you for your business and have a great day.  (Wrap up as save – end Call)</p>
+										</div>
+									</li>
+									<li>
+										<div id="cancelAccount">
+											<p>We appreciate you trying the program; I will process your cancellation now.  (Wrap up as no save – End Call)
+									</p>
+										
+									</li>
+								</ul>
+								
+								<div id="lessThanTwo">
+									<p>So you are already saving most of your monthly membership, if you took advantage of some of the other services (List services they did not say they used) you would be making money on us!</p>
+									<span data-button-text="Yes; wrap Up" data-button-function='' data-button-goto="wrapUpBD">Yes</span>
+								</div>
+							</li>
+						</ul>
+					
+					</li>
+					<li>
+							<div id="servicesNo">
+						<h3>No; have not used services.</h3>
+						<p> Morbi imperdiet turpis in est tristique hendrerit. Maecenas id sodales lacus. Donec vitae leo mollis, accumsan nulla quis, commodo augue. Nunc dignissim dui lectus, nec porta mi ultrices a. Sed ultricies interdum ipsum sit amet sodales. Suspendisse rutrum nulla sed dui vestibulum, quis posuere enim placerat. Nam vulputate, sem pharetra luctus consequat, sem mi vestibulum nibh, id pellentesque velit metus ut nibh. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+						<p>Curabitur lacinia dui urna, ut gravida diam dapibus vitae. Sed viverra ligula non risus cursus interdum. Vivamus nec condimentum turpis. Pellentesque eu purus mollis augue rutrum ultricies ut vitae nunc. Donec convallis purus eu odio varius, nec malesuada quam placerat. Cras laoreet nibh ut nisl facilisis cursus. Etiam varius nulla massa, eu adipiscing enim aliquet et. Phasellus ultricies, neque sed congue ultricies, elit tellus congue purus, nec pretium nunc mi at felis.</p></p>
+						<p>Do you ever use ...?</br>
+ 							- Nunc quis lacus sapien. Quisque turpis erat, auctor sit amet felis eget, sagittis fringilla tortor. In ac lacus vitae odio tincidunt imperdiet. Nunc sed diam tellus.</p>
+ 						<strong>(pause)</strong>
+ 					
+ 						<p>What I would like to suggest is you take another month and really try out our service, if you’re not saving ten times your monthly fee, give us a call back and we will happily cancel your service.  For $XXX per month you have more to gain than to lose, wouldn’t you agree?</p>
+ 						  	<span data-button-text="Yes; I agree." data-button-function='' data-button-goto="yesIAgreeBD">Yes</span>
+							<span data-button-text="No; please cancel my account" data-button-function="" data-button-goto="cancelAccountBD">No</span>
+						</div>
+							<ul>
+								<li>
+									<div id="yesIAgree">
+										<h3>Yes I agree</h3>
+										<p>Excellent!  Use the services.  Nunc quis lacus sapien. Quisque turpis erat, auctor sit amet felis eget, sagittis fringilla tortor. In ac lacus vitae odio tincidunt imperdiet. Nunc sed diam tellus.</p>
+										<p>Thank you for your business and have a great day.  (Wrap up as save – end Call)</p>
+									</div>
+									<!-- save function here, or above? -->
+								</li>
+								<li>
+									<div id="cancelAccount">
+										<p>We appreciate you trying the program; I will process your cancellation now.  (Wrap up as no save – End Call)
+</p>
+									</div>
+								</li>
+							</ul>
+
+					</div>	
+				</li>
+				</ul>	
+
+			</li>
+		</ul>	
+
+</form>
+</body>
+</html>
