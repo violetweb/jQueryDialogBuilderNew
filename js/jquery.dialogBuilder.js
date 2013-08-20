@@ -68,22 +68,22 @@
     }); 
 
 };
-
 function callMethod(method,params){
     var fn = window[method];
-    fn(params);
+    fn.apply(null,params);
 }
-
+//http://localhost/jQueryDialogBuilderNew/%22nameofrestful.asp%22,%22param1=123&param2=S1%22,%22%22?_=1377037346189
 function buildDialog(dialogId,dialogButtons,dialogContent,dialogTitle,opts){
   
   var $button1 = $(dialogButtons[0]).attr("data-button-text");
   var $button2 = $(dialogButtons[1]).attr("data-button-text"); 
   var $b1funcCall = $(dialogButtons[0]).attr("data-button-function");
+
   var $b2funcCall = $(dialogButtons[1]).attr("data-button-function"); 
   var $b1GotoCall = $(dialogButtons[0]).attr("data-button-goto");
   var $b2GotoCall = $(dialogButtons[1]).attr("data-button-goto"); 
  
-  
+ 
   var btns = {};
   if ($button1!=undefined){
     btns[0] = { 
@@ -91,9 +91,9 @@ function buildDialog(dialogId,dialogButtons,dialogContent,dialogTitle,opts){
         click: function () {
             //* If there's a function / ajax call, make it.
             if ($b1funcCall!=""){
-              //call data function
-              var methods = $b1funcCall.split(",");          
-              callMethod(methods[0],methods[1]);
+              //call data function//
+              var methods = $b1funcCall.split("|");               
+              callMethod(methods[0],methods[1].split(","));
             }
             if ($b1GotoCall!=""){
               //closed current.
@@ -112,8 +112,8 @@ function buildDialog(dialogId,dialogButtons,dialogContent,dialogTitle,opts){
             //* If there's a function / ajax call, make it.
             if ($b2funcCall!=""){
               //call data function
-              var methods = $b2funcCall.split(",");          
-              callMethod(methods[0],methods[1]);
+             var methods = $b2funcCall.split("|");               
+              callMethod(methods[0],methods[1].split(","));
             }
             if ($b2GotoCall!=""){
               //closed current.
